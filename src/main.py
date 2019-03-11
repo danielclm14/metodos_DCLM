@@ -1,27 +1,32 @@
 # -*- coding: utf-8 -*-
 from sympy import *
 from mpmath import *
+from methods.euler import Euler
+from methods.eulerinverso import EulerInverso
+from methods.euleraprimorado import EulerAprimorado
+from methods.rungekutta import RungeKutta
 
-file = open('input/input.txt', 'r')
+def main():
+    #fileIn = open('input/input.txt', 'r')
+    fileOut = open('output/saida.txt','w')
+    fileOut.close()
+    with open('input/input.txt', 'r') as fileIn:
+        for line in fileIn:
+            inputi = line
+            inputi = inputi.split()
+            if (inputi[0] == "euler"):
+                new_method = Euler(inputi)
+            if(inputi[0] == "euler_inverso"):
+                new_method = EulerInverso(inputi)
+            if(inputi[0] == "euler_aprimorado"):
+                new_method = EulerAprimorado(inputi)
+            if (inputi[0] == "runge_kutta"):
+                new_method = RungeKutta(inputi)
+            new_method.method()
+    fileIn.close()
 
-inputi = file.readline()
-inputi = inputi.split()
-file.close()
-file = open('output/saida.txt','w')
-t, y = symbols("t y")
-function = sympify(inputi[5])
-y0, t0, h, n = sympify(inputi[1]), sympify(inputi[2]), sympify(inputi[3]), sympify(inputi[4]) 
-
-for j in range(0, n+1):
-    k1 = function.subs([(t, t0), (y, y0)])
-    file.write(str(j))
-    file.write(" ")
-    file.write(str(y0))
-    file.write("\n")
-    y0 = y0 + h*k1
-    t0 = t0 + h
-
-file.close()
+if __name__ == '__main__':
+	main()
 
 
 
