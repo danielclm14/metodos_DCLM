@@ -7,6 +7,7 @@ class EulerInverso:
 
     def method(self):
         fileOut = open('output/saida.txt','a')
+        fileOut2 = open('output/eulerinverso.csv','w')
         t, y = symbols("t y")
         function = sympify(self.inputi[5])
         y0, t0, h, n = sympify(self.inputi[1]), sympify(self.inputi[2]), sympify(self.inputi[3]), sympify(self.inputi[4]) 
@@ -21,11 +22,15 @@ class EulerInverso:
             fileOut.write(" ")
             fileOut.write(str(y0))
             fileOut.write("\n")
+            fileOut2.write(str(j))
+            fileOut2.write(" ")
+            fileOut2.write(str(y0))
+            fileOut2.write("\n")
             y0 = y0 + h*k2
             t0 = t0 + h
-            
-            
+        
         fileOut.close()
+        fileOut2.close()
 
 
 

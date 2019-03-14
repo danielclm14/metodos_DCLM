@@ -7,6 +7,7 @@ class RungeKutta:
 
     def method(self):
         fileOut = open('output/saida.txt','a')
+        fileOut2 = open('output/rungekutta.csv','w')
         t, y = symbols("t y")
         function = sympify(self.inputi[5])
         y0, t0, h, n = sympify(self.inputi[1]), sympify(self.inputi[2]), sympify(self.inputi[3]), sympify(self.inputi[4]) 
@@ -23,8 +24,13 @@ class RungeKutta:
             fileOut.write(" ")
             fileOut.write(str(y0))
             fileOut.write("\n")
+            fileOut2.write(str(j))
+            fileOut2.write(" ")
+            fileOut2.write(str(y0))
+            fileOut2.write("\n")
             y0 = y0 + (h/6)*(k1+2*k2+2*k3+k4)
             t0 = t0 + h
         fileOut.close()
+        fileOut2.close()
 
 
