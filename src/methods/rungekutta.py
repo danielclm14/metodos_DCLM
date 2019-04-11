@@ -23,6 +23,8 @@ class RungeKutta:
             fileOut.write(str(j))
             fileOut.write(" ")
             fileOut.write(str(y0))
+            fileOut.write(" ")
+            fileOut.write(str(t0))
             fileOut.write("\n")
             fileOut2.write(str(j))
             fileOut2.write(" ")
