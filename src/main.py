@@ -6,6 +6,7 @@ from methods.eulerinverso import EulerInverso
 from methods.euleraprimorado import EulerAprimorado
 from methods.rungekutta import RungeKutta
 from methods.adambashforth import AdamBashforth
+from methods.adammulton import AdamMulton
 
 def main():
     #fileIn = open('input/input.txt', 'r')
@@ -23,8 +24,10 @@ def main():
                 new_method = EulerAprimorado(inputi)
             if (inputi[0] == "runge_kutta"):
                 new_method = RungeKutta(inputi)
-            if (inputi[0] == "adam_bashforth_by_euler"):
+            if (inputi[0].find("adam_bashforth") != -1):
                 new_method = AdamBashforth(inputi)
+            if (inputi[0].find("adam_multon") != -1):
+                new_method = AdamMulton(inputi)
             new_method.method()
     fileIn.close()
 

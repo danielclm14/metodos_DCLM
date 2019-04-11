@@ -27,19 +27,20 @@ class AdamBashforth:
         # first n steps made by Euler method
         last_n = []
         for i in range(SN):
-            k1 = function.subs([(t, t0), (y, y0)])
-            fileOut.write(str(i))
-            fileOut.write(" ")
-            fileOut.write(str(y0))
-            fileOut.write("\n")
-            fileOut2.write(str(i))
-            fileOut2.write(" ")
-            fileOut2.write(str(y0))
-            fileOut2.write("\n")
-            # print(repr(y0) + ' ' + repr(t0) + ' ' + repr(k1))
-            y0 = y0 + h*k1
-            last_n.append(y0)
-            t0 = t0 + h
+            if (self.inputi[0].find("_by_euler_") != -1):
+                k1 = function.subs([(t, t0), (y, y0)])
+                fileOut.write(str(i))
+                fileOut.write(" ")
+                fileOut.write(str(y0))
+                fileOut.write("\n")
+                fileOut2.write(str(i))
+                fileOut2.write(" ")
+                fileOut2.write(str(y0))
+                fileOut2.write("\n")
+                # print(repr(y0) + ' ' + repr(t0) + ' ' + repr(k1))
+                y0 = y0 + h*k1
+                last_n.append(y0)
+                t0 = float(t0 + h)
         # Adams-Bashforth method
         for i in range(SN,n + 1):
             fileOut.write(str(i))
@@ -50,13 +51,13 @@ class AdamBashforth:
             fileOut2.write(" ")
             fileOut2.write(str(y0))
             fileOut2.write("\n")
-            y0 += h * sum([function.subs([(t,t0 - j * h),(y,last_n[j])]) * s5[j] for j in range(SN)])
-            last_n = last_n[1:]
-            last_n.append(y0)
-            # y0 += h * sum([last_n[j] * s5[j] for j in range(SN)])
+            # y0 += h * sum([function.subs([(t,t0 - j * h),(y,last_n[j])]) * s5[j] for j in range(SN)])
             # last_n = last_n[1:]
-            # last_n.append(function.subs([(t,t0),(y,y0)]))
-            t0 += h
+            # last_n.append(y0)
+            y0 += h * sum([last_n[j] * s5[j] for j in range(SN)])
+            last_n = last_n[1:]
+            last_n.append(function.subs([(t,t0),(y,y0)]))
+            t0 = float(t0 + h)
         fileOut.close()
         fileOut2.close()
 
