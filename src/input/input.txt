@@ -3,4 +3,10 @@ euler_inverso 0 0 0.1 20 1-t+4*y
 euler_aprimorado 0 0 0.1 20 1-t+4*y
 runge_kutta 0 0 0.1 20 1-t+4*y
 adam_bashforth_by_euler_ 0 0 0.1 20 1-t+4*y s6
+adam_bashforth_by_eulerinverso_ 0 0 0.1 20 1-t+4*y s6
+adam_bashforth_by_euleraprimorado_ 0 0 0.1 20 1-t+4*y s6
+adam_bashforth_by_runge_kutta 0 0 0.1 20 1-t+4*y s6
 adam_multon_by_euler_ 0 0 0.1 20 1-t+4*y s6
+adam_multon_by_eulerinverso_ 0 0 0.1 20 1-t+4*y s6
+adam_multon_by_euleraprimorado_ 0 0 0.1 20 1-t+4*y s6
+adam_multon_by_runge_kutta 0 0 0.1 20 1-t+4*y s6

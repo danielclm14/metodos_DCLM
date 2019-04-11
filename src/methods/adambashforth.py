@@ -41,6 +41,50 @@ class AdamBashforth:
                 y0 = y0 + h*k1
                 last_n.append(y0)
                 t0 = float(t0 + h)
+            if (self.inputi[0].find("_by_eulerinverso_") != -1):
+                k1 = function.subs([(t, t0), (y, y0)])
+                k2 = function.subs([(t, t0+h), (y, y0 + h*k1)])
+                fileOut.write(str(i))
+                fileOut.write(" ")
+                fileOut.write(str(y0))
+                fileOut.write("\n")
+                fileOut2.write(str(i))
+                fileOut2.write(" ")
+                fileOut2.write(str(y0))
+                fileOut2.write("\n")
+                y0 = y0 + h*k2
+                last_n.append(y0)
+                t0 = t0 + h
+            if (self.inputi[0].find("_by_euleraprimorado_") != -1):
+                k1 = function.subs([(t, t0), (y, y0)])
+                k2 = function.subs([(t, t0+h), (y, y0 + h*k1)])
+                fileOut.write(str(i))
+                fileOut.write(" ")
+                fileOut.write(str(y0))
+                fileOut.write("\n")
+                fileOut2.write(str(i))
+                fileOut2.write(" ")
+                fileOut2.write(str(y0))
+                fileOut2.write("\n")
+                y0 = y0 + (h/2)*(k1+k2)
+                last_n.append(y0)
+                t0 = t0 + h
+            if (self.inputi[0].find("_by_runge_kutta") != -1):
+                k1 = function.subs([(t, t0), (y, y0)])
+                k2 = function.subs([(t, t0 + h/2), (y, y0 + ((h/2)*k1))])
+                k3 = function.subs([(t, t0 + h/2), (y, y0 + ((h/2)*k2))])
+                k4 = function.subs([(t, t0 + h), (y, y0 + h*k3)])
+                fileOut.write(str(i))
+                fileOut.write(" ")
+                fileOut.write(str(y0))
+                fileOut.write("\n")
+                fileOut2.write(str(i))
+                fileOut2.write(" ")
+                fileOut2.write(str(y0))
+                fileOut2.write("\n")
+                y0 = y0 + (h/6)*(k1+2*k2+2*k3+k4)
+                last_n.append(y0)
+                t0 = t0 + h
         # Adams-Bashforth method
         for i in range(SN,n + 1):
             fileOut.write(str(i))
@@ -51,12 +95,12 @@ class AdamBashforth:
             fileOut2.write(" ")
             fileOut2.write(str(y0))
             fileOut2.write("\n")
-            # y0 += h * sum([function.subs([(t,t0 - j * h),(y,last_n[j])]) * s5[j] for j in range(SN)])
-            # last_n = last_n[1:]
-            # last_n.append(y0)
-            y0 += h * sum([last_n[j] * s5[j] for j in range(SN)])
+            y0 += h * sum([function.subs([(t,t0 - j * h),(y,last_n[j])]) * s5[j] for j in range(SN)])
             last_n = last_n[1:]
-            last_n.append(function.subs([(t,t0),(y,y0)]))
+            last_n.append(y0)
+            # y0 += h * sum([last_n[j] * s5[j] for j in range(SN)])
+            # last_n = last_n[1:]
+            # last_n.append(function.subs([(t,t0),(y,y0)]))
             t0 = float(t0 + h)
         fileOut.close()
         fileOut2.close()

@@ -11,6 +11,7 @@ from methods.adammulton import AdamMulton
 def main():
     #fileIn = open('input/input.txt', 'r')
     fileOut = open('output/saida.txt','w')
+    fileOut3 = open('output/saidadois.txt','w')
     fileOut.close()
     with open('input/input.txt', 'r') as fileIn:
         for line in fileIn:
